@@ -42,7 +42,7 @@ conf {
     ...
 }
 ```
-* basic example
+* **basic example**
 ```
 conf {
     project_name = typesafe-config
@@ -51,7 +51,7 @@ conf {
 ```
 conf.getString("conf.project_name") // typesafe-config
 ```
-* substitutions (way of eliminating copy-paste)
+* **substitutions (way of eliminating copy-paste)**
 ```
 predefined {
     version : 1.0-SNAPSHOT
@@ -65,7 +65,7 @@ conf {
 conf.getString("conf.project_version") // 1.0-SNAPSHOT
 conf.getString("conf.artifact_version") // 1.0-SNAPSHOT
 ```
-* handling `JSON` objects
+* **handling `JSON` objects**
 ```
 author : {name : michal, surname : tumilowicz}
 ```
@@ -75,7 +75,7 @@ Config asConfig = author.toConfig(); // treat is as a Config
 asConfig.getString("name"); // michal
 asConfig.getString("surname"); // tumilowicz
 ```
-* mapping `JSON` to `JavaBean`  
+* **mapping `JSON` to `JavaBean`**  
 If you have a `Java` object that follows `JavaBean` conventions 
 (zero-args constructor, getters and setters), you can 
 automatically initialize it from a `Config`.
@@ -87,7 +87,7 @@ Author author = ConfigBeanFactory.create(conf.getObject("conf.author").toConfig(
 author.getName(); // michal
 author.getSurname(); // tumilowicz
 ```
-* merging  
+* **merging**
     1. Values on the same line are concatenated (for strings and arrays) 
     or merged (for objects).
     1. If you duplicate a field with an object value, then the objects 
@@ -100,13 +100,44 @@ it's merged to:
 ```
 persistence : {specification: JPA, provider : EclipseLink, cache : false, database : Oracle}
 ```
-* merging + substitution  
+* **merging + substitution**  
 Merging is especially useful with substitutions
 ```
-headquarters : {name : "mtumilowicz holding"}
-branch_east : ${predefined.headquarters} {branch_name : east}
+predefined {
+    headquarters : {name : "mtumilowicz holding"}
+}
+conf {
+    branch_east : ${predefined.headquarters} {branch_name : east}
+}
 ```
 it's merged to:
 ```
 headquarters : {name : "mtumilowicz holding", branch_name : east}
+```
+* **substitutions with default value**
+```
+predefined {
+}
+conf {
+    web_container : GlassFish
+    web_container : ${?predefined.web_container}
+}
+```
+Here, the field `web_container : ${?predefined.web_container}` 
+simply vanishes if there's no value for `predefined.web_container`. 
+But if you set `predefined.web_container` - it would be used.
+```
+conf.getString("conf.web_container") // GlassFish
+```
+but:
+```
+predefined {
+    login: admin
+]
+conf {
+    login : ${?predefined.login}
+}
+```
+```
+conf.getString("conf.login") // admin
 ```
