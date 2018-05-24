@@ -1,6 +1,8 @@
 import com.typesafe.config.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -80,5 +82,16 @@ class ConfigTest {
     @Test
     void web_container() {
         assertEquals("GlassFish", conf.getString("conf.web_container"));
+    }
+    
+    @Test
+    void languages() {
+        assertEquals(Arrays.asList("english", "polish", "french"), conf.getStringList("conf.languages"));
+    }
+    
+    @Test
+    void user_statuses() {
+        assertArrayEquals(UserStatus.values(),
+                conf.getEnumList(UserStatus.class, "conf.user_status").toArray(new UserStatus[0]));
     }
 }

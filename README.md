@@ -27,7 +27,9 @@ use-cases. It's written in [HOCON](https://github.com/lightbend/config#features-
 * `test/java/ConfigTest` - we test if all lines from 
 `application.conf` file was loaded successfully.  
 * `test/java/Author` - util class for mapping specific entry 
-in `application.conf` to the `JavaBean`.
+in `application.conf` directly to the `JavaBean`.
+* `test/java/UserStatus` - util class for mapping specific entry 
+in `application.conf` directly to the `Enum`.
 
 ## use cases
 Assumptions:  
@@ -146,4 +148,23 @@ conf {
 ```
 ```
 conf.getString("conf.login") // admin
+```
+* **lists**
+```
+languages : [english, polish, french]
+```
+```
+conf.getStringList("conf.languages") // [english, polish, french]
+```
+* **enums**
+```
+user_status : [PENDING, ACTIVE, INACTIVE, DELETED]
+```
+```
+public enum UserStatus {
+    PENDING, ACTIVE, INACTIVE, DELETED
+}
+```
+```
+conf.getEnumList(UserStatus.class, "conf.user_status") // [PENDING, ACTIVE, INACTIVE, DELETED]
 ```
