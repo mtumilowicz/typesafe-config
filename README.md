@@ -65,6 +65,12 @@ conf {
 conf.getString("conf.project_version") // 1.0-SNAPSHOT
 conf.getString("conf.artifact_version") // 1.0-SNAPSHOT
 ```
+Note:  
+Remember if there is no defined `yyy` then 
+`xxx : ${yyy}` will cause
+```
+ExceptionInInitializerError: Could not resolve substitution to a value: ${yyy}
+```
 * **handling `JSON` objects**
 ```
 author : {name : michal, surname : tumilowicz}
