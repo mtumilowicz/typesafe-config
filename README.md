@@ -77,7 +77,7 @@ author : {name : michal, surname : tumilowicz}
 ```
 ```
 ConfigObject author = conf.getObject("conf.author");
-Config asConfig = author.toConfig(); // treat is as a Config
+Config asConfig = author.toConfig(); // treat it as a Config
 asConfig.getString("name"); // michal
 asConfig.getString("surname"); // tumilowicz
 ```
@@ -102,12 +102,12 @@ author.getSurname(); // tumilowicz
 persistence : {specification: JPA, provider : Hibernate, cache : true}
 persistence : {provider : EclipseLink, cache : false, database : Oracle}
 ```
-it's merged to:
+is merged to:
 ```
 persistence : {specification: JPA, provider : EclipseLink, cache : false, database : Oracle}
 ```
 * **merging + substitution**  
-Merging is especially useful with substitutions
+Merging is especially useful with substitutions.
 ```
 predefined {
     headquarters : {name : "mtumilowicz holding"}
@@ -116,7 +116,7 @@ conf {
     branch_east : ${predefined.headquarters} {branch_name : east}
 }
 ```
-it's merged to:
+is merged to:
 ```
 headquarters : {name : "mtumilowicz holding", branch_name : east}
 ```
@@ -135,7 +135,7 @@ But if you set `predefined.web_container` - it would be used.
 ```
 conf.getString("conf.web_container") // GlassFish
 ```
-but:
+Contrary:
 ```
 predefined {
     login: admin
