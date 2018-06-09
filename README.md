@@ -32,18 +32,18 @@ in `application.conf` directly to the `JavaBean`.
 in `application.conf` directly to the `Enum`.
 
 ## use cases
-Assumptions:  
-* `Config conf = ConfigFactory.load();`
-* `application.conf` has structure:
-    ```
-    predefined {
-        ...
-    }
+* Assumptions:  
+    * `Config conf = ConfigFactory.load();`
+    * `application.conf` has structure:
+        ```
+        predefined {
+            ...
+        }
 
-    conf {
-        ...
-    }
-    ```
+        conf {
+            ...
+        }
+        ```
 * **basic example**
     ```
     conf {
