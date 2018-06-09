@@ -96,9 +96,9 @@ automatically initialize it from a `Config`.
     author.getSurname(); // tumilowicz
     ```
 * **merging**
-    1. Values on the same line are concatenated (for strings and arrays) 
+    * Values on the same line are concatenated (for strings and arrays) 
     or merged (for objects).
-    1. If you duplicate a field with an object value, then the objects 
+    * If you duplicate a field with an object value, then the objects 
     are merged with last-one-wins.
     ```
     persistence : {specification: JPA, provider : Hibernate, cache : true}
