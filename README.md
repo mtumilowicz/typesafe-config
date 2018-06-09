@@ -67,7 +67,7 @@ in `application.conf` directly to the `Enum`.
     conf.getString("conf.project_version") // 1.0-SNAPSHOT
     conf.getString("conf.artifact_version") // 1.0-SNAPSHOT
     ```
-    * Note:  
+    **Note**:  
     Remember if there is no defined `yyy` then 
     `xxx : ${yyy}` will cause
         ```
