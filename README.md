@@ -35,44 +35,44 @@ in `application.conf` directly to the `Enum`.
 Assumptions:  
 * `Config conf = ConfigFactory.load();`
 * `application.conf` has structure:
-```
-predefined {
-    ...
-}
+    ```
+    predefined {
+        ...
+    }
 
-conf {
-    ...
-}
-```
+    conf {
+        ...
+    }
+    ```
 * **basic example**
-```
-conf {
-    project_name = typesafe-config
-}
-```
-```
-conf.getString("conf.project_name") // typesafe-config
-```
+    ```
+    conf {
+        project_name = typesafe-config
+    }
+    ```
+    ```
+    conf.getString("conf.project_name") // typesafe-config
+    ```
 * **substitutions (way of eliminating copy-paste)**
-```
-predefined {
-    version : 1.0-SNAPSHOT
-}
-conf {
-    project_version : ${predefined.version}
-    artifact_version : ${predefined.version}
-}
-```
-```
-conf.getString("conf.project_version") // 1.0-SNAPSHOT
-conf.getString("conf.artifact_version") // 1.0-SNAPSHOT
-```
-Note:  
-Remember if there is no defined `yyy` then 
-`xxx : ${yyy}` will cause
-```
-ExceptionInInitializerError: Could not resolve substitution to a value: ${yyy}
-```
+    ```
+    predefined {
+        version : 1.0-SNAPSHOT
+    }
+    conf {
+        project_version : ${predefined.version}
+        artifact_version : ${predefined.version}
+    }
+    ```
+    ```
+    conf.getString("conf.project_version") // 1.0-SNAPSHOT
+    conf.getString("conf.artifact_version") // 1.0-SNAPSHOT
+    ```
+* Note:  
+    Remember if there is no defined `yyy` then 
+    `xxx : ${yyy}` will cause
+    ```
+    ExceptionInInitializerError: Could not resolve substitution to a value: ${yyy}
+    ```
 * **handling `JSON` objects**
 ```
 author : {name : michal, surname : tumilowicz}
@@ -87,27 +87,27 @@ asConfig.getString("surname"); // tumilowicz
 If you have a `Java` object that follows `JavaBean` conventions 
 (zero-args constructor, getters and setters), you can 
 automatically initialize it from a `Config`.
-```
-author : {name : michal, surname : tumilowicz}
-```
-```
-Author author = ConfigBeanFactory.create(conf.getObject("conf.author").toConfig(), Author.class);
-author.getName(); // michal
-author.getSurname(); // tumilowicz
-```
+    ```
+    author : {name : michal, surname : tumilowicz}
+    ```
+    ```
+    Author author = ConfigBeanFactory.create(conf.getObject("conf.author").toConfig(), Author.class);
+    author.getName(); // michal
+    author.getSurname(); // tumilowicz
+    ```
 * **merging**
     1. Values on the same line are concatenated (for strings and arrays) 
     or merged (for objects).
     1. If you duplicate a field with an object value, then the objects 
     are merged with last-one-wins.
-```
-persistence : {specification: JPA, provider : Hibernate, cache : true}
-persistence : {provider : EclipseLink, cache : false, database : Oracle}
-```
-is merged to:
-```
-persistence : {specification: JPA, provider : EclipseLink, cache : false, database : Oracle}
-```
+    ```
+    persistence : {specification: JPA, provider : Hibernate, cache : true}
+    persistence : {provider : EclipseLink, cache : false, database : Oracle}
+    ```
+    is merged to:
+    ```
+    persistence : {specification: JPA, provider : EclipseLink, cache : false, database : Oracle}
+    ```
 * **merging + substitution**  
 Merging is especially useful with substitutions.
 ```
