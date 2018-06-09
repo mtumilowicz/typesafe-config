@@ -70,9 +70,9 @@ in `application.conf` directly to the `Enum`.
     **Note**:  
     Remember if there is no defined `yyy` then 
     `xxx : ${yyy}` will cause
-        ```
-        ExceptionInInitializerError: Could not resolve substitution to a value: ${yyy}
-        ```
+    ```
+    ExceptionInInitializerError: Could not resolve substitution to a value: ${yyy}
+    ```
 * **Handling `JSON` objects**
     ```
     author : {name : michal, surname : tumilowicz}
