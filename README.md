@@ -74,15 +74,15 @@ Assumptions:
     ExceptionInInitializerError: Could not resolve substitution to a value: ${yyy}
     ```
 * **handling `JSON` objects**
-```
-author : {name : michal, surname : tumilowicz}
-```
-```
-ConfigObject author = conf.getObject("conf.author");
-Config asConfig = author.toConfig(); // treat it as a Config
-asConfig.getString("name"); // michal
-asConfig.getString("surname"); // tumilowicz
-```
+    ```
+    author : {name : michal, surname : tumilowicz}
+    ```
+    ```
+    ConfigObject author = conf.getObject("conf.author");
+    Config asConfig = author.toConfig(); // treat it as a Config
+    asConfig.getString("name"); // michal
+    asConfig.getString("surname"); // tumilowicz
+    ```
 * **mapping `JSON` to `JavaBean`**  
 If you have a `Java` object that follows `JavaBean` conventions 
 (zero-args constructor, getters and setters), you can 
@@ -110,61 +110,61 @@ automatically initialize it from a `Config`.
     ```
 * **merging + substitution**  
 Merging is especially useful with substitutions.
-```
-predefined {
-    headquarters : {name : "mtumilowicz holding"}
-}
-conf {
-    branch_east : ${predefined.headquarters} {branch_name : east}
-}
-```
-is merged to:
-```
-headquarters : {name : "mtumilowicz holding", branch_name : east}
-```
+    ```
+    predefined {
+        headquarters : {name : "mtumilowicz holding"}
+    }
+    conf {
+        branch_east : ${predefined.headquarters} {branch_name : east}
+    }
+    ```
+    is merged to:
+    ```
+    headquarters : {name : "mtumilowicz holding", branch_name : east}
+    ```
 * **substitutions with default value**
-```
-predefined {
-}
-conf {
-    web_container : GlassFish
-    web_container : ${?predefined.web_container}
-}
-```
-Here, the field `web_container : ${?predefined.web_container}` 
-simply vanishes if there's no value for `predefined.web_container`. 
-But if you set `predefined.web_container` - it would be used.
-```
-conf.getString("conf.web_container") // GlassFish
-```
-Contrary:
-```
-predefined {
-    login: admin
-]
-conf {
-    login : ${?predefined.login}
-}
-```
-```
-conf.getString("conf.login") // admin
-```
+    ```
+    predefined {
+    }
+    conf {
+        web_container : GlassFish
+        web_container : ${?predefined.web_container}
+    }
+    ```
+    Here, the field `web_container : ${?predefined.web_container}` 
+    simply vanishes if there's no value for `predefined.web_container`. 
+    But if you set `predefined.web_container` - it would be used.
+    ```
+    conf.getString("conf.web_container") // GlassFish
+    ```
+    Contrary:
+    ```
+    predefined {
+        login: admin
+    ]
+    conf {
+        login : ${?predefined.login}
+    }
+    ```
+    ```
+    conf.getString("conf.login") // admin
+    ```
 * **lists**
-```
-languages : [english, polish, french]
-```
-```
-conf.getStringList("conf.languages") // [english, polish, french]
-```
+    ```
+    languages : [english, polish, french]
+    ```
+    ```
+    conf.getStringList("conf.languages") // [english, polish, french]
+    ```
 * **enums**
-```
-user_status : [PENDING, ACTIVE, INACTIVE, DELETED]
-```
-```
-public enum UserStatus {
-    PENDING, ACTIVE, INACTIVE, DELETED
-}
-```
-```
-conf.getEnumList(UserStatus.class, "conf.user_status") // [PENDING, ACTIVE, INACTIVE, DELETED]
-```
+    ```
+    user_status : [PENDING, ACTIVE, INACTIVE, DELETED]
+    ```
+    ```
+    public enum UserStatus {
+        PENDING, ACTIVE, INACTIVE, DELETED
+    }
+    ```
+    ```
+    conf.getEnumList(UserStatus.class, "conf.user_status") // [PENDING, ACTIVE, INACTIVE, DELETED]
+    ```
