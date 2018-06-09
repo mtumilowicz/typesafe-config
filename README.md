@@ -32,7 +32,7 @@ in `application.conf` directly to the `JavaBean`.
 in `application.conf` directly to the `Enum`.
 
 ## use cases
-* Assumptions:  
+* **Assumptions**:  
     * `Config conf = ConfigFactory.load();`
     * `application.conf` has structure:
         ```
@@ -44,7 +44,7 @@ in `application.conf` directly to the `Enum`.
             ...
         }
         ```
-* **basic example**
+* **Basic example**
     ```
     conf {
         project_name = typesafe-config
@@ -53,7 +53,7 @@ in `application.conf` directly to the `Enum`.
     ```
     conf.getString("conf.project_name") // typesafe-config
     ```
-* **substitutions (way of eliminating copy-paste)**
+* **Substitutions (way of eliminating copy-paste)**
     ```
     predefined {
         version : 1.0-SNAPSHOT
@@ -67,13 +67,13 @@ in `application.conf` directly to the `Enum`.
     conf.getString("conf.project_version") // 1.0-SNAPSHOT
     conf.getString("conf.artifact_version") // 1.0-SNAPSHOT
     ```
-* Note:  
+    * Note:  
     Remember if there is no defined `yyy` then 
     `xxx : ${yyy}` will cause
-    ```
-    ExceptionInInitializerError: Could not resolve substitution to a value: ${yyy}
-    ```
-* **handling `JSON` objects**
+        ```
+        ExceptionInInitializerError: Could not resolve substitution to a value: ${yyy}
+        ```
+* **Handling `JSON` objects**
     ```
     author : {name : michal, surname : tumilowicz}
     ```
@@ -83,7 +83,7 @@ in `application.conf` directly to the `Enum`.
     asConfig.getString("name"); // michal
     asConfig.getString("surname"); // tumilowicz
     ```
-* **mapping `JSON` to `JavaBean`**  
+* **Mapping `JSON` to `JavaBean`**  
 If you have a `Java` object that follows `JavaBean` conventions 
 (zero-args constructor, getters and setters), you can 
 automatically initialize it from a `Config`.
@@ -95,7 +95,7 @@ automatically initialize it from a `Config`.
     author.getName(); // michal
     author.getSurname(); // tumilowicz
     ```
-* **merging**
+* **Merging**
     * Values on the same line are concatenated (for strings and arrays) 
     or merged (for objects).
     * If you duplicate a field with an object value, then the objects 
@@ -108,8 +108,8 @@ automatically initialize it from a `Config`.
     ```
     persistence : {specification: JPA, provider : EclipseLink, cache : false, database : Oracle}
     ```
-* **merging + substitution**  
-Merging is especially useful with substitutions.
+* **Merging + substitution**  
+    Merging is especially useful with substitutions.
     ```
     predefined {
         headquarters : {name : "mtumilowicz holding"}
@@ -122,7 +122,7 @@ Merging is especially useful with substitutions.
     ```
     headquarters : {name : "mtumilowicz holding", branch_name : east}
     ```
-* **substitutions with default value**
+* **Substitutions with default value**
     ```
     predefined {
     }
@@ -149,14 +149,14 @@ Merging is especially useful with substitutions.
     ```
     conf.getString("conf.login") // admin
     ```
-* **lists**
+* **Lists**
     ```
     languages : [english, polish, french]
     ```
     ```
     conf.getStringList("conf.languages") // [english, polish, french]
     ```
-* **enums**
+* **Enums**
     ```
     user_status : [PENDING, ACTIVE, INACTIVE, DELETED]
     ```
